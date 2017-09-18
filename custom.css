@@ -1,0 +1,15 @@
+.footer {
+background-image: url('http://212.235.187.145/azureRep/slidemaster/footer.jpg');
+background-size: 100%;
+min-height: 40px;
+}
+
+.sloNaslov {
+background-image: url('http://212.235.187.145/azureRep/slidemaster/slonaslov.jpg');
+background-size: cover;
+}
+
+.angNaslov{
+background-image: url('http://212.235.187.145/azureRep/slidemaster/angnaslov.jpg');
+background-size: cover;
+}
