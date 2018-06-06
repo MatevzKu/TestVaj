@@ -57,8 +57,11 @@ counter=0
 
 while True:
     client_sock, client_addr = s.accept()
-    request = normalize_line_endings(recv_all(client_sock)) # hack again
-    print request
+    print(client_sock)
+    print(client_addr)
+    #request = normalize_line_endings(recv_all(client_sock)) # hack again
+    #request = recv_all(client_sock)
+    #print (request)
     response_body = [        
         '{"temp":' + str(80.0*rn()) + ',"hum":' + str(60.0*rn()) + ',"pres":' + str(80.0*rn()) + '}'
     ]
@@ -75,7 +78,7 @@ while True:
     }
 
     response_headers_raw = ''.join('%s: %s\n' % (k, v) for k, v in \
-                                            response_headers.iteritems())
+                                            response_headers.items())
 
     # Reply as HTTP/1.1 server, saying "HTTP OK" (code 200).
     response_proto = 'HTTP/1.1'
@@ -83,11 +86,14 @@ while True:
     response_status_text = 'OK\n' # this can be random
 
     # sending all this stuff
-    client_sock.send('%s %s %s' % (response_proto, response_status, \
-                                                    response_status_text))
-    client_sock.send(response_headers_raw)
-    client_sock.send('\n') # to separate headers from body
-    client_sock.send(response_body_raw)
+#    client_sock.send('%s %s %s' % (response_proto, response_status, \
+#                                                    response_status_text))
+    client_sock.send(str.encode(response_proto))
+    client_sock.send(str.encode(response_status))
+    client_sock.send(str.encode(response_status_text))
+    client_sock.send(str.encode(response_headers_raw))
+    client_sock.send(str.encode('\n')) # to separate headers from body
+    client_sock.send(str.encode(response_body_raw))
 
     # and closing connection, as we stated before
     client_sock.close()
